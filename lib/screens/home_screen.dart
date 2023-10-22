@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/widgets/additional_info.dart';
+import 'package:weather_app/widgets/hourly_info.dart';
+import 'package:weather_app/widgets/main_weather_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -45,124 +49,84 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 Image.network(
-                  // 'https://clipart-library.com/new_gallery/map-clipart-30.png',
                   'https://cdn.pixabay.com/photo/2016/03/22/04/23/map-1272165_1280.png',
-                  width: 150,
-                  height: 150,
+                  width: 100,
+                  height: 100,
+                ),
+              ],
+            ),
+            const MainCard(),
+            const SizedBox(
+              height: 10,
+            ),
+            const AdditionalInfo(),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Today',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: const Row(
+                    children: [
+                      Text(
+                        'Next 7 Days',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 18,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
             const SizedBox(
               height: 10,
             ),
-            SizedBox(
-              height: 220,
-              width: double.infinity,
-              child: Card(
-                elevation: 10,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.horizontal(
-                    right: Radius.circular(50),
-                    left: Radius.circular(50),
+            const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  HourlyInfo(
+                    time: '12:00',
+                    icon: CupertinoIcons.cloud_bolt_fill,
+                    temp: '30',
                   ),
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Color.fromARGB(255, 174, 205, 255),
-                        Color.fromARGB(255, 88, 151, 253),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.horizontal(
-                      right: Radius.circular(50),
-                      left: Radius.circular(50),
-                    ),
+                  HourlyInfo(
+                    time: '2:00',
+                    icon: CupertinoIcons.cloud_bolt_rain_fill,
+                    temp: '28',
                   ),
-                  child: Row(
-                    children: [
-                      Column(
-                        children: [
-                          const SizedBox(height: 20,),
-                          Image.network(
-                            'https://cdn3d.iconscout.com/3d/premium/thumb/rain-3311753-2754887.png',
-                            width: 220,
-                          ),
-                          const Text(
-                            'Heavy Rain',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 22,
-                              shadows: [
-                                Shadow(
-                                  color: Color.fromARGB(50, 3, 168, 244),
-                                  offset: Offset(0, 5),
-                                  blurRadius: 10,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Text(
-                            'Tonight',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 14,
-                              shadows: [
-                                Shadow(
-                                  color: Color.fromARGB(50, 3, 168, 244),
-                                  offset: Offset(0, 5),
-                                  blurRadius: 10,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          ShaderMask(
-                            shaderCallback: (Rect bounds) {
-                              return const LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Colors.white,
-                                    Color.fromARGB(255, 159, 196, 255),
-                                  ]).createShader(bounds);
-                            },
-                            child: const Text(
-                              '27\u00B0',
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                shadows: [
-                                  Shadow(
-                                    color: Color.fromARGB(50, 3, 168, 244),
-                                    offset: Offset(0, 5),
-                                    blurRadius: 10,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const Icon(
-                            Icons.waves,
-                            color: Colors.blueAccent,
-                            size: 70,
-                          )
-                        ],
-                      ),
-                    ],
+                  HourlyInfo(
+                    time: '4:00',
+                    icon: CupertinoIcons.cloud_bolt_rain_fill,
+                    temp: '28',
                   ),
-                ),
+                  HourlyInfo(
+                    time: '6:00',
+                    icon: CupertinoIcons.cloud_hail_fill,
+                    temp: '22',
+                  ),
+                  HourlyInfo(
+                    time: '8:00',
+                    icon: CupertinoIcons.cloud_rain_fill,
+                    temp: '26',
+                  ),
+                  HourlyInfo(
+                    time: '10:00',
+                    icon: CupertinoIcons.cloud_moon_bolt_fill,
+                    temp: '30',
+                  ),
+                ],
               ),
             ),
           ],
