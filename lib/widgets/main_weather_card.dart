@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class MainCard extends StatelessWidget {
   const MainCard({super.key});
@@ -124,12 +125,22 @@ class MainCard extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          bottom: 95,
-          left: 50,
-          child: Image.asset(
-            'assets/images/11.png',
-            width: 120,
+        Animate(
+          onPlay: (controller) => controller.repeat(reverse: true),
+          effects: const [
+            MoveEffect(
+              begin: Offset(-5, 0),
+              end: Offset(5, 0),
+              duration: Duration(seconds: 5),
+            ),
+          ],
+          child: Positioned(
+            bottom: 95,
+            left: 50,
+            child: Image.asset(
+              'assets/images/11.png',
+              width: 120,
+            ),
           ),
         ),
       ],
