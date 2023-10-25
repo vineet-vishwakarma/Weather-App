@@ -18,8 +18,12 @@ class _HourlyInfoState extends State<HourlyInfo> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SizedBox(
-        height: 120,
+        height: 130,
+        width: 70,
         child: Card(
+          color: isHovered
+              ? const Color.fromARGB(255, 129, 110, 248)
+              : Colors.white,
           elevation: 4,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -27,24 +31,62 @@ class _HourlyInfoState extends State<HourlyInfo> {
               bottom: Radius.circular(40),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  widget.time,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                Icon(
-                  widget.icon,
-                  size: 40,
-                ),
-                Text(
-                  '${widget.temp}\u00B0',
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ],
+          child: InkWell(
+            splashColor: Colors.transparent,
+            onTap: () {
+              setState(() {
+                isHovered = !isHovered;
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  isHovered
+                      ? Text(
+                          widget.time,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Colors.white),
+                        )
+                      : Text(
+                          widget.time,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Colors.black),
+                        ),
+                  isHovered
+                      ? Image.asset(
+                          'assets/images/11.png',
+                          width: 40,
+                        )
+                      : Icon(
+                          widget.icon,
+                          size: 40,
+                          color: isHovered ? Colors.white : Colors.black,
+                        ),
+                  isHovered
+                      ? Text(
+                          '${widget.temp}\u00B0',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(
+                          '${widget.temp}\u00B0',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        )
+                ],
+              ),
             ),
           ),
         ),
