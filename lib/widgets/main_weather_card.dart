@@ -5,13 +5,15 @@ class MainCard extends StatelessWidget {
   final String temp;
   final String feelsLike;
   final String description;
+  final String weatherMain;
   final String imgLocation;
   const MainCard(
       {super.key,
       required this.temp,
       required this.feelsLike,
       required this.description,
-      required this.imgLocation});
+      required this.imgLocation,
+      required this.weatherMain});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,7 @@ class MainCard extends StatelessWidget {
                                 height: 120,
                               ),
                               Text(
-                                description,
+                                weatherMain,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -77,9 +79,9 @@ class MainCard extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              const Text(
-                                'Tonight',
-                                style: TextStyle(
+                              Text(
+                                description,
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                   fontSize: 14,
@@ -97,6 +99,9 @@ class MainCard extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              const SizedBox(
+                                height: 20,
+                              ),
                               ShaderMask(
                                 shaderCallback: (Rect bounds) {
                                   return const LinearGradient(
