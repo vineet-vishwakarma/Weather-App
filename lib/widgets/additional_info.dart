@@ -1,17 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AdditionalInfo extends StatelessWidget {
-  const AdditionalInfo({super.key});
+class AdditionalInfo extends StatefulWidget {
+  final String humidity;
+  final String windSpeed;
+  final String pressure;
+  const AdditionalInfo(
+      {super.key,
+      required this.humidity,
+      required this.windSpeed,
+      required this.pressure});
 
   @override
+  State<AdditionalInfo> createState() => _AdditionalInfoState();
+}
+
+class _AdditionalInfoState extends State<AdditionalInfo> {
+  @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Column(
           children: [
-            Card(
+            const Card(
               elevation: 4,
               child: Padding(
                 padding: EdgeInsets.all(8.0),
@@ -22,19 +34,19 @@ class AdditionalInfo extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Humidity',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Text(
-              '70%',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              '${widget.humidity}%',
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
         ),
         Column(
           children: [
-            Card(
+            const Card(
                 elevation: 4,
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
@@ -44,19 +56,19 @@ class AdditionalInfo extends StatelessWidget {
                     color: Colors.blueAccent,
                   ),
                 )),
-            Text(
+            const Text(
               'Wind Speed',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Text(
-              '7.5 km/h',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              '${widget.windSpeed} km/h',
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
         ),
         Column(
           children: [
-            Card(
+            const Card(
               elevation: 4,
               child: Padding(
                 padding: EdgeInsets.all(8.0),
@@ -67,13 +79,13 @@ class AdditionalInfo extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Pressure',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Text(
-              '1000',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              '${widget.pressure} mBar',
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -81,4 +93,3 @@ class AdditionalInfo extends StatelessWidget {
     );
   }
 }
-
