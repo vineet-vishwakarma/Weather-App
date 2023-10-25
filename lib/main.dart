@@ -13,7 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(useMaterial3: true),
-      home: const HomeScreen(),
+      home: PageView(
+        children: const [
+          HomeScreen(),
+        ],
+      ),
     );
   }
 }
