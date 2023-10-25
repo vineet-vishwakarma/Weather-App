@@ -22,7 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
   late double currentTemp;
   late double feelsLikeTemp;
   late String description;
+  late String weather;
   late String imgLocation;
+  late int humidity;
+  late dynamic windSpeed;
+  late dynamic pressure;
+  late String time;
+  late Map dataset;
 
   Future getCurrentWeather() async {
     try {
@@ -40,10 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
       String weatherDescription = data['list'][0]['weather'][0]['description'];
       description = weatherDescription[0].toUpperCase() +
           weatherDescription.substring(1, weatherDescription.length);
-      String weather = data['list'][0]['weather'][0]['main'];
+      weather = data['list'][0]['weather'][0]['main'];
       weather == 'Clouds'
           ? imgLocation = 'assets/images/clouds.png'
           : imgLocation = 'assets/images/sun.png';
+
+      humidity = data['list'][0]['main']['humidity'];
+      pressure = data['list'][0]['main']['pressure'];
+      windSpeed = data['list'][0]['wind']['speed'];
+      dataset = data;
     } catch (e) {
       throw e.toString();
     }
@@ -59,6 +70,14 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {});
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: getCurrentWeather(),
@@ -69,7 +88,22 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
           if (snapshot.hasError) {
-            return Center(child: Text(snapshot.error.toString()));
+            return CupertinoAlertDialog(
+              // title: Text(snapshot.error.toString()),
+              title: const Text('Server Error Occur Back To Homepage'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    city = 'Bhopal';
+                    setState(() {});
+                  },
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            );
           }
 
           return Padding(
@@ -96,11 +130,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      // Image.network(
-                      //   'https://cdn.pixabay.com/photo/2016/03/22/04/23/map-1272165_1280.png',
-                      //   width: 100,
-                      //   height: 100,
-                      // ),
                       Expanded(
                         child: SearchBar(
                           onSubmitted: (value) {
@@ -142,9 +171,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     temp: currentTemp.toString(),
                     feelsLike: feelsLikeTemp.toString(),
                     description: description,
+                    weatherMain: weather,
                   ),
-                  const SizedBox(height: 10),
-                  const AdditionalInfo(),
+                  const SizedBox(height: 20),
+                  AdditionalInfo(
+                    humidity: humidity.toString(),
+                    windSpeed: windSpeed.toString(),
+                    pressure: pressure.toString(),
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -173,41 +207,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  const SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        HourlyInfo(
-                          time: '12:00',
-                          icon: CupertinoIcons.cloud_bolt_fill,
-                          temp: '30',
-                        ),
-                        HourlyInfo(
-                          time: '2:00',
-                          icon: CupertinoIcons.cloud_bolt_rain_fill,
-                          temp: '28',
-                        ),
-                        HourlyInfo(
-                          time: '4:00',
-                          icon: CupertinoIcons.cloud_bolt_rain_fill,
-                          temp: '28',
-                        ),
-                        HourlyInfo(
-                          time: '6:00',
-                          icon: CupertinoIcons.cloud_hail_fill,
-                          temp: '22',
-                        ),
-                        HourlyInfo(
-                          time: '8:00',
-                          icon: CupertinoIcons.cloud_rain_fill,
-                          temp: '26',
-                        ),
-                        HourlyInfo(
-                            time: '10:00',
-                            icon: CupertinoIcons.cloud_moon_bolt_fill,
-                            temp: '30'),
-                      ],
+                  SizedBox(
+                    height: 130,
+                    child: ListView.builder(
+                      itemCount: 35,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final time = DateTime.parse(
+                            dataset['list'][index + 1]['dt_txt'].toString());
+                        return HourlyInfo(
+                          temp: dataset['list'][index + 1]['main']['temp']
+                              .toString(),
+                          time: DateFormat.Hm().format(time),
+                          icon: Icons.cloud,
+                        );
+                      },
                     ),
                   ),
                 ],
