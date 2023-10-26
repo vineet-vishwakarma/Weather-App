@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/config.dart';
+import 'package:weather_app/weather_image_function.dart';
 import 'package:weather_app/widgets/additional_info.dart';
 import 'package:weather_app/widgets/hourly_info.dart';
 import 'package:weather_app/widgets/main_weather_card.dart';
@@ -53,138 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
       pressure = data['list'][0]['main']['pressure'];
       windSpeed = data['list'][0]['wind']['speed'];
       dataset = data;
-
-      DateTime now = DateTime.now();
-
-      int currentHour = now.hour;
-      int dayStartHour = 6;
-      int nightStartHour = 18;
-
-      if (currentHour >= dayStartHour && currentHour < nightStartHour) {
-        switch (weather) {
-          case 'Clear':
-            {
-              imagePath = 'assets/images/sun.png';
-              dynamicIcons = Icons.sunny;
-            }
-            break;
-          case 'Clouds':
-            {
-              imagePath = 'assets/images/day_clouds.png';
-              dynamicIcons = CupertinoIcons.cloud_fill;
-            }
-            break;
-          case 'Rain':
-            {
-              imagePath = 'assets/images/rain.png';
-              dynamicIcons = CupertinoIcons.cloud_rain_fill;
-            }
-            break;
-          case 'Snow':
-            {
-              imagePath = 'assets/images/snowfall.png';
-              dynamicIcons = CupertinoIcons.cloud_snow_fill;
-            }
-            break;
-          case 'Drizzle':
-            {
-              imagePath = 'assets/images/rain.png';
-              dynamicIcons = CupertinoIcons.cloud_drizzle_fill;
-            }
-            break;
-          case 'Thunderstorm':
-            {
-              imagePath = 'assets/images/day_thunderstorm.png.png';
-              dynamicIcons = CupertinoIcons.cloud_bolt_rain_fill;
-            }
-            break;
-          case 'Fog':
-            {
-              imagePath = 'assets/images/sun.png';
-              dynamicIcons = CupertinoIcons.cloud_fog_fill;
-            }
-            break;
-          case 'Mist':
-            {
-              imagePath = 'assets/images/sun.png';
-              dynamicIcons = CupertinoIcons.cloud_sleet_fill;
-            }
-            break;
-          case 'Haze':
-            {
-              imagePath = 'assets/images/sun.png';
-              dynamicIcons = CupertinoIcons.cloud_fog;
-            }
-            break;
-          default:
-            {
-              imagePath = 'assets/images/sun.png';
-              dynamicIcons = Icons.sunny;
-            }
-        }
-      } else {
-        switch (weather) {
-          case 'Clear':
-            {
-              imagePath = 'assets/images/moon.png';
-              dynamicIcons = CupertinoIcons.moon_fill;
-            }
-            break;
-          case 'Clouds':
-            {
-              imagePath = 'assets/images/night_clouds.png';
-              dynamicIcons = CupertinoIcons.cloud_moon;
-            }
-            break;
-          case 'Rain':
-            {
-              imagePath = 'assets/images/rain.png';
-              dynamicIcons = CupertinoIcons.cloud_heavyrain_fill;
-            }
-            break;
-          case 'Snow':
-            {
-              imagePath = 'assets/images/snowfall.png';
-              dynamicIcons = CupertinoIcons.cloud_snow_fill;
-            }
-            break;
-          case 'Drizzle':
-            {
-              imagePath = 'assets/images/rain.png';
-              dynamicIcons = CupertinoIcons.cloud_drizzle_fill;
-            }
-            break;
-          case 'Thunderstorm':
-            {
-              imagePath = 'assets/images/night_thunderstorm.png';
-              dynamicIcons = CupertinoIcons.cloud_moon_bolt_fill;
-            }
-            break;
-          case 'Fog':
-            {
-              imagePath = 'assets/images/moon.png';
-              dynamicIcons = CupertinoIcons.cloud_fog_fill;
-            }
-            break;
-          case 'Mist':
-            {
-              imagePath = 'assets/images/moon.png';
-              dynamicIcons = CupertinoIcons.cloud_sleet_fill;
-            }
-            break;
-          case 'Haze':
-            {
-              imagePath = 'assets/images/moon.png';
-              dynamicIcons = CupertinoIcons.cloud_fog;
-            }
-            break;
-          default:
-            {
-              imagePath = 'assets/images/moon.png';
-              dynamicIcons = CupertinoIcons.moon_stars_fill;
-            }
-        }
-      }
+      dynamic imageIconValue = imageIcon(weather);
+      imagePath = imageIconValue['imagePath'];
     } catch (e) {
       throw e.toString();
     }
@@ -343,10 +214,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: 35,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                        weather =
+                            dataset['list'][index + 1]['weather'][0]['main'];
+                        dynamic imageIconValue = imageIcon(weather);
+                        imagePath = imageIconValue['imagePath'];
+                        dynamicIcons = imageIconValue['dynamicIcons'];
                         final time = DateTime.parse(
                             dataset['list'][index + 1]['dt_txt'].toString());
                         final hourTime = DateFormat.Hm().format(time);
                         return HourlyInfo(
+                          img: imagePath,
                           temp: dataset['list'][index + 1]['main']['temp']
                               .toString(),
                           time: hourTime,

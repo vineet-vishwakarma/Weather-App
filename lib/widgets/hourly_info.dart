@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 class HourlyInfo extends StatefulWidget {
   final String temp;
   final String time;
+  final String img;
   final IconData icon;
   const HourlyInfo(
-      {super.key, required this.temp, required this.time, required this.icon});
+      {super.key,
+      required this.temp,
+      required this.time,
+      required this.icon,
+      required this.img});
 
   @override
   State<HourlyInfo> createState() => _HourlyInfoState();
@@ -60,7 +65,7 @@ class _HourlyInfoState extends State<HourlyInfo> {
                         ),
                   isHovered
                       ? Image.asset(
-                          'assets/images/11.png',
+                          widget.img,
                           width: 40,
                         )
                       : Icon(
