@@ -23,12 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
   late double feelsLikeTemp;
   late String description;
   late String weather;
-  late String imgLocation;
   late int humidity;
   late dynamic windSpeed;
   late dynamic pressure;
   late String time;
+  late String imagePath;
   late Map dataset;
+  late IconData dynamicIcons;
 
   Future getCurrentWeather() async {
     try {
@@ -47,14 +48,143 @@ class _HomeScreenState extends State<HomeScreen> {
       description = weatherDescription[0].toUpperCase() +
           weatherDescription.substring(1, weatherDescription.length);
       weather = data['list'][0]['weather'][0]['main'];
-      weather == 'Clouds'
-          ? imgLocation = 'assets/images/clouds.png'
-          : imgLocation = 'assets/images/sun.png';
 
       humidity = data['list'][0]['main']['humidity'];
       pressure = data['list'][0]['main']['pressure'];
       windSpeed = data['list'][0]['wind']['speed'];
       dataset = data;
+
+      DateTime now = DateTime.now();
+
+      int currentHour = now.hour;
+      int dayStartHour = 6;
+      int nightStartHour = 18;
+
+      if (currentHour >= dayStartHour && currentHour < nightStartHour) {
+        switch (weather) {
+          case 'Clear':
+            {
+              imagePath = 'assets/images/sun.png';
+              dynamicIcons = Icons.sunny;
+            }
+            break;
+          case 'Clouds':
+            {
+              imagePath = 'assets/images/day_clouds.png';
+              dynamicIcons = CupertinoIcons.cloud_fill;
+            }
+            break;
+          case 'Rain':
+            {
+              imagePath = 'assets/images/rain.png';
+              dynamicIcons = CupertinoIcons.cloud_rain_fill;
+            }
+            break;
+          case 'Snow':
+            {
+              imagePath = 'assets/images/snowfall.png';
+              dynamicIcons = CupertinoIcons.cloud_snow_fill;
+            }
+            break;
+          case 'Drizzle':
+            {
+              imagePath = 'assets/images/rain.png';
+              dynamicIcons = CupertinoIcons.cloud_drizzle_fill;
+            }
+            break;
+          case 'Thunderstorm':
+            {
+              imagePath = 'assets/images/day_thunderstorm.png.png';
+              dynamicIcons = CupertinoIcons.cloud_bolt_rain_fill;
+            }
+            break;
+          case 'Fog':
+            {
+              imagePath = 'assets/images/sun.png';
+              dynamicIcons = CupertinoIcons.cloud_fog_fill;
+            }
+            break;
+          case 'Mist':
+            {
+              imagePath = 'assets/images/sun.png';
+              dynamicIcons = CupertinoIcons.cloud_sleet_fill;
+            }
+            break;
+          case 'Haze':
+            {
+              imagePath = 'assets/images/sun.png';
+              dynamicIcons = CupertinoIcons.cloud_fog;
+            }
+            break;
+          default:
+            {
+              imagePath = 'assets/images/sun.png';
+              dynamicIcons = Icons.sunny;
+            }
+        }
+      } else {
+        switch (weather) {
+          case 'Clear':
+            {
+              imagePath = 'assets/images/moon.png';
+              dynamicIcons = CupertinoIcons.moon_fill;
+            }
+            break;
+          case 'Clouds':
+            {
+              imagePath = 'assets/images/night_clouds.png';
+              dynamicIcons = CupertinoIcons.cloud_moon;
+            }
+            break;
+          case 'Rain':
+            {
+              imagePath = 'assets/images/rain.png';
+              dynamicIcons = CupertinoIcons.cloud_heavyrain_fill;
+            }
+            break;
+          case 'Snow':
+            {
+              imagePath = 'assets/images/snowfall.png';
+              dynamicIcons = CupertinoIcons.cloud_snow_fill;
+            }
+            break;
+          case 'Drizzle':
+            {
+              imagePath = 'assets/images/rain.png';
+              dynamicIcons = CupertinoIcons.cloud_drizzle_fill;
+            }
+            break;
+          case 'Thunderstorm':
+            {
+              imagePath = 'assets/images/night_thunderstorm.png';
+              dynamicIcons = CupertinoIcons.cloud_moon_bolt_fill;
+            }
+            break;
+          case 'Fog':
+            {
+              imagePath = 'assets/images/moon.png';
+              dynamicIcons = CupertinoIcons.cloud_fog_fill;
+            }
+            break;
+          case 'Mist':
+            {
+              imagePath = 'assets/images/moon.png';
+              dynamicIcons = CupertinoIcons.cloud_sleet_fill;
+            }
+            break;
+          case 'Haze':
+            {
+              imagePath = 'assets/images/moon.png';
+              dynamicIcons = CupertinoIcons.cloud_fog;
+            }
+            break;
+          default:
+            {
+              imagePath = 'assets/images/moon.png';
+              dynamicIcons = CupertinoIcons.moon_stars_fill;
+            }
+        }
+      }
     } catch (e) {
       throw e.toString();
     }
@@ -167,7 +297,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 10,
                   ),
                   MainCard(
-                    imgLocation: imgLocation,
+                    imgLocation: imagePath,
                     temp: currentTemp.toString(),
                     feelsLike: feelsLikeTemp.toString(),
                     description: description,
@@ -215,11 +345,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         final time = DateTime.parse(
                             dataset['list'][index + 1]['dt_txt'].toString());
+                        final hourTime = DateFormat.Hm().format(time);
                         return HourlyInfo(
                           temp: dataset['list'][index + 1]['main']['temp']
                               .toString(),
-                          time: DateFormat.Hm().format(time),
-                          icon: Icons.cloud,
+                          time: hourTime,
+                          icon: dynamicIcons,
                         );
                       },
                     ),
