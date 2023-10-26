@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController query = TextEditingController();
   String city = 'Bhopal';
   String date = DateFormat("EEE dd").format(DateTime.now());
   late double currentTemp;
@@ -66,9 +67,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text(
-          'Weather App',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Image.asset(
+          'assets/images/weather_logo_horizontal.png',
+          width: 150,
         ),
         centerTitle: true,
         actions: [
@@ -112,6 +113,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -133,6 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Expanded(
                         child: SearchBar(
+                          controller: query,
                           onSubmitted: (value) {
                             setState(() {
                               if (value != '') city = value;
@@ -148,7 +153,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           elevation: const MaterialStatePropertyAll(2),
                           trailing: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  city = query.text;
+                                });
+                              },
                               icon: const Icon(
                                 Icons.search,
                                 color: Color.fromARGB(255, 129, 110, 248),
