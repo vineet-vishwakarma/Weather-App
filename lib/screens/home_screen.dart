@@ -91,8 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
           }
           if (snapshot.hasError) {
             return CupertinoAlertDialog(
-              // title: Text(snapshot.error.toString()),
-              title: const Text('Server Error Occur Back To Homepage'),
+              title: Text(snapshot.error.toString()),
+              // title: const Text('Server Error Occur Back To Homepage'),
               actions: [
                 TextButton(
                   onPressed: () {
