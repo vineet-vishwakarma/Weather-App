@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:lottie/lottie.dart';
 
 class MainCard extends StatelessWidget {
   final String temp;
@@ -170,9 +171,9 @@ class MainCard extends StatelessWidget {
             child: Positioned(
               bottom: 95,
               left: 50,
-              child: Image.asset(
+              child: Lottie.asset(
                 imgLocation,
-                width: 120,
+                width: 140,
               ),
             ),
           ),

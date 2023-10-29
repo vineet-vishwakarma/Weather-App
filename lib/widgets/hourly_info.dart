@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class HourlyInfo extends StatefulWidget {
   final String temp;
@@ -64,9 +65,9 @@ class _HourlyInfoState extends State<HourlyInfo> {
                               color: Colors.black),
                         ),
                   isHovered
-                      ? Image.asset(
+                      ? Lottie.asset(
                           widget.img,
-                          width: 40,
+                          width: 60,
                         )
                       : Icon(
                           widget.icon,

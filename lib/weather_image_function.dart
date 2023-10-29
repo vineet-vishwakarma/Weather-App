@@ -21,13 +21,13 @@ dynamic imageIcon(String weather) {
         break;
       case 'Clouds':
         {
-          imagePath = 'assets/images/day_clouds.png';
+          imagePath = 'assets/animations/clouds_day.json';
           dynamicIcons = CupertinoIcons.cloud_fill;
         }
         break;
       case 'Rain':
         {
-          imagePath = 'assets/images/rain.png';
+          imagePath = 'assets/animations/day_rain.json';
           dynamicIcons = CupertinoIcons.cloud_rain_fill;
         }
         break;
@@ -39,31 +39,31 @@ dynamic imageIcon(String weather) {
         break;
       case 'Drizzle':
         {
-          imagePath = 'assets/images/rain.png';
+          imagePath = 'assets/animations/day_rain.json';
           dynamicIcons = CupertinoIcons.cloud_drizzle_fill;
         }
         break;
       case 'Thunderstorm':
         {
-          imagePath = 'assets/images/day_thunderstorm.png.png';
+          imagePath = 'assets/animations/thunderstorm.json';
           dynamicIcons = CupertinoIcons.cloud_bolt_rain_fill;
         }
         break;
       case 'Fog':
         {
-          imagePath = 'assets/images/sun.png';
+          imagePath = 'assets/animations/fog.json';
           dynamicIcons = CupertinoIcons.cloud_fog_fill;
         }
         break;
       case 'Mist':
         {
-          imagePath = 'assets/images/sun.png';
+          imagePath = 'assets/animations/fog.json';
           dynamicIcons = CupertinoIcons.cloud_sleet_fill;
         }
         break;
       case 'Haze':
         {
-          imagePath = 'assets/images/sun.png';
+          imagePath = 'assets/animations/haze.json';
           dynamicIcons = CupertinoIcons.cloud_fog;
         }
         break;
@@ -77,61 +77,61 @@ dynamic imageIcon(String weather) {
     switch (weather) {
       case 'Clear':
         {
-          imagePath = 'assets/images/moon.png';
+          imagePath = 'assets/animations/clear_night.json';
           dynamicIcons = CupertinoIcons.moon_fill;
         }
         break;
       case 'Clouds':
         {
-          imagePath = 'assets/images/night_clouds.png';
+          imagePath = 'assets/animations/clouds_night.json';
           dynamicIcons = CupertinoIcons.cloud_moon_fill;
         }
         break;
       case 'Rain':
         {
-          imagePath = 'assets/images/rain.png';
+          imagePath = 'assets/animations/night_rain.json';
           dynamicIcons = CupertinoIcons.cloud_heavyrain_fill;
         }
         break;
       case 'Snow':
         {
-          imagePath = 'assets/images/snowfall.png';
+          imagePath = 'assets/animations/snow.json';
           dynamicIcons = CupertinoIcons.cloud_snow_fill;
         }
         break;
       case 'Drizzle':
         {
-          imagePath = 'assets/images/rain.png';
+          imagePath = 'assets/animations/night_rain.json';
           dynamicIcons = CupertinoIcons.cloud_drizzle_fill;
         }
         break;
       case 'Thunderstorm':
         {
-          imagePath = 'assets/images/night_thunderstorm.png';
+          imagePath = 'assets/animations/thunderstorm.json';
           dynamicIcons = CupertinoIcons.cloud_moon_bolt_fill;
         }
         break;
       case 'Fog':
         {
-          imagePath = 'assets/images/moon.png';
+          imagePath = 'assets/animations/night_fog.json';
           dynamicIcons = CupertinoIcons.cloud_fog_fill;
         }
         break;
       case 'Mist':
         {
-          imagePath = 'assets/images/moon.png';
+          imagePath = 'assets/animations/clear_night.json';
           dynamicIcons = CupertinoIcons.cloud_sleet_fill;
         }
         break;
       case 'Haze':
         {
-          imagePath = 'assets/images/moon.png';
+          imagePath = 'assets/animations/clear_night.json';
           dynamicIcons = CupertinoIcons.cloud_fog;
         }
         break;
       default:
         {
-          imagePath = 'assets/images/moon.png';
+          imagePath = 'assets/animations/clear_night.json';
           dynamicIcons = CupertinoIcons.moon_stars_fill;
         }
     }
