@@ -30,7 +30,7 @@ class MainCard extends StatelessWidget {
             padding: const EdgeInsets.only(top: 18.0),
             child: SizedBox(
               height: 220,
-              width: double.infinity,
+              width: 600,
               child: Card(
                 elevation: 10,
                 shape: const RoundedRectangleBorder(

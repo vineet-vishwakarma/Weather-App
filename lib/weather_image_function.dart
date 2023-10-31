@@ -15,7 +15,7 @@ dynamic imageIcon(String weather) {
     switch (weather) {
       case 'Clear':
         {
-          imagePath = 'assets/images/sun.png';
+          imagePath = 'assets/animations/sun.json';
           dynamicIcons = Icons.sunny;
         }
         break;
@@ -69,7 +69,7 @@ dynamic imageIcon(String weather) {
         break;
       default:
         {
-          imagePath = 'assets/images/sun.png';
+          imagePath = 'assets/animations/sun.json';
           dynamicIcons = Icons.sunny;
         }
     }

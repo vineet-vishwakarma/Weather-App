@@ -21,11 +21,11 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController query = TextEditingController();
   String city = 'Bhopal';
   String date = DateFormat("EEE dd").format(DateTime.now());
-  late double currentTemp;
-  late double feelsLikeTemp;
+  late dynamic currentTemp;
+  late dynamic feelsLikeTemp;
   late String description;
   late String weather;
-  late int humidity;
+  late dynamic humidity;
   late dynamic windSpeed;
   late dynamic pressure;
   late String time;
@@ -135,7 +135,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      Expanded(
+                      SizedBox(
+                        width: 210,
                         child: SearchBar(
                           controller: query,
                           onSubmitted: (value) {
